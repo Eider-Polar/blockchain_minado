@@ -39,7 +39,6 @@ class P2PServer {
     connectSocket(socket) {
         this.sockets.push(socket);
         console.log('[ + ] Socket connected');
-        console.log(`Listening for peer-to-peer connections on port ${P2P_PORT}. Initial peers: ${initialPeers}`);
         this.messageHandler(socket);
         this.sendChain(socket);
     }
