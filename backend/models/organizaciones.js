@@ -5,7 +5,7 @@ const organizacionSchema = mongoose.Schema({
         type:String,
         required: true,
     },
-    description:{
+    descripcion:{
         type:String,
         required:true,
     },
@@ -13,7 +13,11 @@ const organizacionSchema = mongoose.Schema({
          type:mongoose.Schema.Types.ObjectId,
          ref:'camapanias'
 
-    }]
+    }],
+    cuentaBAncaria:{
+        type:String,
+
+    }
 });
 
 

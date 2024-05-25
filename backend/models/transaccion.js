@@ -5,6 +5,9 @@ const transaccionSchema = mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         required: true,
     },
+    cuentaUsuario:{
+        type:String,
+    },
     hashDelBloque: {
         type: 'string',
         required: true,
