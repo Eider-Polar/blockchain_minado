@@ -9,7 +9,7 @@ const nuevaCampania = async (req,res)=>{
         nuevacampania.save()
         res.json(nuevacampania)
         const Organizacion = await organizacion.findOne({_id:id})
-        Organizacion.campanias.push(Organizacion)
+        Organizacion.campanias.push(id)
         Organizacion.save()
         console.log(Organizacion)
     } catch (error) {

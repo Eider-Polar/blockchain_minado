@@ -17,18 +17,22 @@ const nuevaTransaccion = async (req, res) => {
     CAMPANIAG.cantidadActual = CAMPANIAG.cantidadActual + cambio;
     await CAMPANIAG.save();
     const y =   CAMPANIAG._id.valueOf()
-    console.log(y)
     const cuentaOrganizacion = await organizacion.findOne({
       campanias: y
     });
   
     console.log(cuentaOrganizacion);
     data.usuario = req.usuario._id;
+    data.nombre=req.usuario.nombre
     data.campaniabenefica = campa;
-     data.cuenta_Organizacion=cuentaOrganizacion.cuentaBAncaria
+    data.cuenta_Organizacion=cuentaOrganizacion.cuentaBAncaria
+    data.Nombre_Organizacion=cuentaOrganizacion.nombre
     const block = bc.addBlock(data);
+
     console.log(`New Block add: ${block.toString()}`);
     P2pserver.syncChains();
+
+
     data.hashDelBloque = block.hash;
     const TransaccionN = new Transaccion(data);
     const TGuardada = await TransaccionN.save();
