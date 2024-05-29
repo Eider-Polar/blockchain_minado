@@ -130,6 +130,7 @@ a{
                 text-align: center;
                 width: 100%;
                 border-radius: 5px;
+                cursor: pointer;
             }
             .article a:hover{
                 background: #f1f2f5;
@@ -453,9 +454,28 @@ a{
       background-color: #25f01a;
     }
     
-    
+    .logoutButton {
+        color: #fff;
+        font-size: 12px;
+        padding: 2px;
+        background: #000;
+        /* margin: 8px 0; */
+        display: inline-block;
+        text-transform: uppercase;
+        text-align: center;
+        width: 50%;
+        border-radius: 14px;
+        cursor: pointer;
+    }
 
-
+    .logoutButton:hover{
+        background: #f1f2f5;
+        color: #000;
+        box-shadow: 0 0 5px #f4fbfc,
+                    0 0 25px #0b1013,
+                    0 0 50px #edf6f7,
+                    0 0 100px #030303;
+    }
 
 
 
