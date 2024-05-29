@@ -16,4 +16,13 @@ const nuevaCampania = async (req,res)=>{
         console.log(error)
     }
 }
-export {nuevaCampania}
+const verCampanias = async(req,res)=>{
+    try {
+        
+        const campanias = await campania.find()
+        res.json(campanias)
+    } catch (error) {
+        console.log(error)
+    }
+}
+export {nuevaCampania, verCampanias}

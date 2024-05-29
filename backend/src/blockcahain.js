@@ -18,7 +18,7 @@ class Blockchain {
     if (JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis)) {
       return false;
     }
-    for (let i = 1; i < this.chain.length; i++) {
+    for (let i = 1; i < chain.length; i++) {
       const block = chain[i];
       const lastBLock = chain[i - 1];
       if (
@@ -37,7 +37,7 @@ class Blockchain {
     } else if (!this.isValidChain(newChain)) {
       console.log("the received chain is not valid");
     } else {
-      console.log("Replacing the received chain . . .");
+      console.log("Replacing the received chain . .");
       this.chain = newChain;
     }
   }

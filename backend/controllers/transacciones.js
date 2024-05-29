@@ -6,13 +6,14 @@ import Usuario from "../models/Usuario.js";
 import organizacion from "../models/organizaciones.js";
 import mongoose from "mongoose";
 const bc = new Blockchain();
-const P2pserver = new P2Pserver();
+const P2pserver = new P2Pserver(bc);
 const nuevaTransaccion = async (req, res) => {
-  const { campa } = req.params;
+  const { id } = req.params;
 
   const data = req.body;
   try {
-    const CAMPANIAG = await campania.findOne({ _id: campa });
+    const CAMPANIAG = await campania.findOne({ _id: id });
+    console.log(CAMPANIAG)
     const cambio = parseInt(data.montoDonado);
     CAMPANIAG.cantidadActual = CAMPANIAG.cantidadActual + cambio;
     await CAMPANIAG.save();
@@ -20,26 +21,25 @@ const nuevaTransaccion = async (req, res) => {
     const cuentaOrganizacion = await organizacion.findOne({
       campanias: y
     });
-  
-    console.log(cuentaOrganizacion);
+  console.log(cuentaOrganizacion)
     data.usuario = req.usuario._id;
     data.nombre=req.usuario.nombre
-    data.campaniabenefica = campa;
+    data.campaniabenefica = id;
     data.cuenta_Organizacion=cuentaOrganizacion.cuentaBAncaria
     data.Nombre_Organizacion=cuentaOrganizacion.nombre
     const block = bc.addBlock(data);
-
-    console.log(`New Block add: ${block.toString()}`);
-    P2pserver.syncChains();
 
 
     data.hashDelBloque = block.hash;
     const TransaccionN = new Transaccion(data);
     const TGuardada = await TransaccionN.save();
     res.json(TGuardada);
+    P2pserver.syncChains();
+
   } catch (error) {
     console.log(error);
-  }
+  }    
+  
 };
 const verCadena = async (req, res) => {
   res.json(bc.chain);
@@ -72,4 +72,12 @@ const verTransaccionesxUsuario = async (req, res) => {
 
   res.json(bloques);
 };
-export { nuevaTransaccion, verCadena, verTransaccionesxUsuario };
+const verTotalDonado=async(req,res)=>{
+  try {
+    const capas = await campania.find()
+    res.json(capas)
+  } catch (error) {
+    console.log(error)
+  }
+}
+export { nuevaTransaccion, verCadena, verTransaccionesxUsuario, verTotalDonado};

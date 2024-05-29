@@ -38,6 +38,7 @@ class P2PServer {
 
    
     messageHandler(socket) {
+        console.log("aqui entro")
         socket.on('message', message => {
             const data = JSON.parse(message);
             // this.blockchain.isValidChain(data);]}

@@ -15,7 +15,7 @@ class Block{
         this.difficulty=difficulty;
     }
 
-
+    
     static get genesis(){
         const time = new Date('2009-03-01').getTime()
         return new this( 
@@ -69,7 +69,6 @@ class Block{
 
     static blockHash(block){
         const{time, previousHash, hash,data,nonce,difficulty}=block
-        console.log(time, previousHash, hash,data,nonce,difficulty+"TEXTO")
 
         return block.hash;
 

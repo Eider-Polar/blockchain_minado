@@ -2,9 +2,12 @@ import WebSocket, { WebSocketServer } from 'ws';
 import dotenv from 'dotenv';
 
 dotenv.config();
+
 // ws://192.168.101.3:12345
-const initialPeers = process.env.PEERS ? process.env.PEERS.split(',') : [];
-const P2P_PORT = process.env.P2P_PORT || process.argv[2] || 5004;
+const peers = process.env.PEERS ? process.env.PEERS.split(',') : [];
+const P2P_PORT =  process.env.P2P_PORT;
+
+console.log('P2P_PORT:', P2P_PORT);
 
 class P2PServer {
     constructor(blockchain) {
@@ -13,27 +16,20 @@ class P2PServer {
     }
 
     listen() {
-        const server = new WebSocketServer({ port: P2P_PORT });
-        server.on('connection', socket => this.connectSocket(socket));
+        const server = new WebSocketServer({ host: '0.0.0.0', port: P2P_PORT }); // Modificación aquí
+        server.on('connection', socket => this.connectSocket(socket))
+
         this.connectToPeers();
-        console.log(`Listening for peer-to-peer connections on port ${P2P_PORT}. Initial peers: ${initialPeers}`);
+
+        console.log('Listening for peer-to-peer connections on port ' + P2P_PORT + " estos son los peer" + peers);
     }
+    
 
     connectToPeers() {
-        initialPeers.forEach(peer => this.addPeer(peer));
-    }
-
-    addPeer(peer) {
-        const socket = new WebSocket(peer);
-        socket.on('open', () => {
-            this.connectSocket(socket);
-            this.broadcastNewPeer(peer); // Difundir el nuevo nodo a otros peers
+        peers.forEach(peer => {
+            const socket = new WebSocket(peer);
+            socket.on('open', () => this.connectSocket(socket));
         });
-        socket.on('error', error => console.error(`Error connecting to peer ${peer}:`, error));
-    }
-
-    broadcastNewPeer(newPeer) {
-        this.sockets.forEach(socket => socket.send(JSON.stringify({ type: 'newPeer', peer: newPeer })));
     }
 
     connectSocket(socket) {
@@ -43,34 +39,25 @@ class P2PServer {
         this.sendChain(socket);
     }
 
+   
     messageHandler(socket) {
         socket.on('message', message => {
             const data = JSON.parse(message);
+            // this.blockchain.isValidChain(data);]}
+            this.blockchain.remplaceChain(data)
 
-            switch (data.type) {
-                case 'newPeer':
-                    this.handleNewPeer(data.peer);
-                    break;
-                default:
-                    this.blockchain.replaceChain(data);
-                    break;
-            }
+
         });
     }
-
-    handleNewPeer(peer) {
-        if (!this.sockets.find(s => s.url === peer)) { // Evitar conexiones duplicadas
-            this.addPeer(peer);
-        }
-    }
-
+    
     sendChain(socket) {
         socket.send(JSON.stringify(this.blockchain.chain));
     }
 
     syncChains() {
-        this.sockets.forEach(socket => this.sendChain(socket));
+        this.sockets.forEach(socket => {
+            this.sendChain(socket);
+        });
     }
 }
-
 export default P2PServer;
