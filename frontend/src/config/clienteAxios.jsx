@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 const clienteAxios = axios.create({
-    baseURL: 'https://scp5krc6-3002.use2.devtunnels.ms/api'
+    baseURL: 'http://localhost:3002/api'
 })
 
 export default clienteAxios
