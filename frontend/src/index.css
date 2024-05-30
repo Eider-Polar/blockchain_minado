@@ -104,20 +104,25 @@ a{
             display: flex;
             flex-flow: row wrap;
             padding: 5px;
+            background-color: red;
         }
             .article{
-                flex: 1 1 40%;
+                /* width: 400px;
+                height: 400px; */
+                background-color: #0056b3;
                 padding: 10px;
-                color: #444;
+                color: #e71010;
                 font-size: 13px;
                 letter-spacing: 1px;
                 margin: 10px 5px 10px 5px;
-                flex: 1 1 45%;
                 background: #c9c9c9;
             }
-            .article img{
-                width: 100%;
+            /* .article_img{
+                width: 400px;
                 border-radius: 15px;
+            } */
+            .article_body{
+               height: 400px; 
             }
             .article a{
                 color: #fff;

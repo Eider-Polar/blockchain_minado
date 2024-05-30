@@ -66,12 +66,16 @@ const Principal = () => {
           {campania.length ? (
             campania.map((proyecto) => (
               <article class="article" key={proyecto._id}>
+                <div class="article_img">
                 <img src={imageMap[proyecto._id]} alt="" />
+                </div>
+                <div class="article_body">
                 <h3>{proyecto.fechaCreacionCampania}
-                <h2>{proyecto.nombre}</h2></h3>
-                
+                </h3>
+                <h2>{proyecto.nombre}</h2>
                 <p>{proyecto.descripcion}</p>
                 <a onClick={()=>handleLogout(proyecto._id)}>Donar</a>
+                </div>
               </article>
             ))
           ) : (
