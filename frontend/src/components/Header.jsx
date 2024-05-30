@@ -86,15 +86,7 @@ function Header() {
           
         </div>
       </div>
-      <div class="texto-principal margen-interno">
-        <h1>
-          Juntos podemos marcar la diferencia. Cada donación, por pequeña que
-          sea, es un paso hacia un mundo mejor. Tu generosidad puede cambiar
-          vidas, brindar esperanza y construir un futuro más brillante para
-          aquellos que más lo necesitan. Únete a nosotros en esta misión de
-          solidaridad y apoyo mutuo. ¡Cada acto de generosidad cuenta!
-        </h1>
-      </div>
+     
     </header>
   );
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import clienteAxios from "../config/clienteAxios";
-
+import Header from "../components/Header";
 const ReportexUsuario = () => {
   const [reporte, setReporte] = useState({});
   const [lista, setLista] = useState([]);
@@ -39,6 +39,9 @@ const ReportexUsuario = () => {
   console.log(lista)
 
   return (
+    <>
+    <Header />
+
     <table>
       <thead>
         <tr>
@@ -76,6 +79,7 @@ const ReportexUsuario = () => {
         )}
       </tbody>
     </table>
+    </>
   );
 };
 

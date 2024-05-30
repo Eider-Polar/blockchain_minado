@@ -400,22 +400,26 @@ p{
         width: 400px;
         padding: 40px;
         transform: translate(-50%, -50%);
-        background: rgb(27, 173, 245);
+        background: #DB7830;
         box-sizing: border-box;
         box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
-        border-radius: 10px 45px;
+        border-radius: 24px ;
     }
 
     .app-title {
         font-family: 'Lora', serif; 
         font-size: 45px;
         text-align: center;
-        color: #000000;
+        color: #ffffff
     }
     .app-texto{
         color:white;
         font-size: 19px;
         padding: 21px;
+    }
+    .Olvidatecontra{
+        margin-top: 9px;
+        color: white;
     }
     
     /* .login-form {

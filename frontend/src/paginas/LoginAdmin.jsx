@@ -92,15 +92,11 @@ const LoginAdmin = () => {
         </div>
         <div class="control-group">
           <input type="submit" value="Ingresar" class="" />
-          <Link className="" to="/olvide-password">
+          <Link class="Olvidatecontra" to="/olvide-password">
             ¿Olvidaste tu ? <span className="">Contraseña</span>
           </Link>
         </div>
-        <div className="flex items-center justify-center p-2">
-          <Link to={"/"} className="">
-            
-          </Link>
-        </div>
+        
       </form>
       <nav className="lg:flex p-4 justify-center"></nav>
     </div>
