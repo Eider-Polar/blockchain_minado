@@ -50,19 +50,19 @@ const LoginAdmin = () => {
 
   return (
     <div
-    class="login"
+    class="container3"
     >
-      <div class="login-screen" >
+      <div class="app" >
         <h1 class="app-title">
-          Dona <span className="">vida</span>
+        Helping{"  "}Us
         </h1>
       </div>
 
       {msg && <Alerta alerta={alerta} />}
-      <form class="loginPrincipal" onSubmit={handleSubmit}>
+      <form class="" onSubmit={handleSubmit}>
         <div className=""></div>
 
-        <label class="a" htmlFor="email">
+        <label class="app-texto" htmlFor="email">
           Correo
         </label>
         <div class="control-group">
@@ -76,7 +76,7 @@ const LoginAdmin = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <label class="a" htmlFor="email">
+        <label class="app-texto" htmlFor="email">
           Contraseña
         </label>
 

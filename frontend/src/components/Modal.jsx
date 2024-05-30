@@ -46,7 +46,7 @@ const Modal = ({ onclose, id }) => {
     <form onSubmit={handleSubmit}>
       <alerta></alerta>
       <div class="container2">
-        <h2>DONAVIDA AYUDA</h2>
+        <h2 class="h2">Helping Us</h2>
 
         <div class="input-group">
           <label for="origen">Cuenta de Origen:</label>

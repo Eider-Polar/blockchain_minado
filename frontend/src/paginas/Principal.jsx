@@ -58,8 +58,9 @@ const Principal = () => {
             campania.map((proyecto) => (
               <article class="article" key={proyecto._id}>
                 <img src={imageMap[proyecto._id]} alt="" />
-                <h3>23 de mayo de 2024</h3>
-                <h2>{proyecto.nombre}</h2>
+                <h3>{proyecto.fechaCreacionCampania}
+                <h2>{proyecto.nombre}</h2></h3>
+                
                 <p>{proyecto.descripcion}</p>
                 <a onClick={()=>handleLogout(proyecto._id)}>Donar</a>
               </article>

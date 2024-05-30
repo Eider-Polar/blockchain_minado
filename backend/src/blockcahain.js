@@ -41,6 +41,7 @@ class Blockchain {
       this.chain = newChain;
     }
   }
+ 
 }
 
 export  default Blockchain

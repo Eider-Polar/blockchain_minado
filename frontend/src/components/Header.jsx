@@ -39,7 +39,7 @@ function Header() {
     <header class="header">
       <div class="menu margen-interno">
         <div class="logo">
-          <a href="prueba.html">DonaVida</a>
+          <a href="prueba.html">HelpingUs</a>
         </div>
         <nav class="nav">
           <a href="#">
@@ -75,15 +75,15 @@ function Header() {
               </div>
             </>
           ) : (
-            <></>
-          )}
-          <button
+            <><a
             onClick={handleLogout}
             type="button"
-            className="logoutButton"
+            className=""
           >
             Cerrar Sesión
-          </button>
+          </a></>
+          )}
+          
         </div>
       </div>
       <div class="texto-principal margen-interno">

@@ -159,7 +159,7 @@ a{
                 font-size: 25px;
                 text-transform: uppercase;
                 padding: 10px;
-                color: #fff;
+                color:red;
             }
             .navegacion{
                 background: #000;
@@ -229,6 +229,8 @@ a{
             box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
             border-radius: 10px;
         }
+        
+        
         /* h2 {
             color: #333;
             text-align: center;
@@ -236,8 +238,16 @@ a{
         h2 {
             margin: 0 0 10px;
             padding: 0;
-            color: #fff;
+            color: #ffffff;
             text-align: center;
+        }
+        .h2{
+            font-family: 'Lora', serif;
+            margin: 0 0 10px;
+            padding: 0;
+            color: #ffffff;
+            text-align: center;
+            font-size: 45px;
         }
         /* .input-group {
             margin-bottom: 20px;
@@ -279,6 +289,7 @@ a{
             pointer-events: none;
             transition: .5s;
         }
+        
         .input-group input[type="text"],
         .input-group input[type="number"] {
             width: 100%;
@@ -332,7 +343,9 @@ a{
 
 
 
-
+p{
+    margin: 10px;
+}
 
 
 
@@ -354,6 +367,9 @@ a{
     }
     h1{
         font-size: 15px;
+    }
+    h2{
+        font-size: 20px;
     }
     .texto-principal{
         height: 450px;
@@ -377,27 +393,34 @@ a{
 }
 
     
-   
-    
-    .login {
-        margin: 20px auto;
-        width: 300px;
-        
+    .container3{
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 400px;
+        padding: 40px;
+        transform: translate(-50%, -50%);
+        background: rgb(27, 173, 245);
+        box-sizing: border-box;
+        box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+        border-radius: 10px 45px;
     }
-    .login-screen {
-        background-color: #37fc21;
-        padding: 0px;
-        border-radius: 10px
-    }
-    
+
     .app-title {
+        font-family: 'Lora', serif; 
+        font-size: 45px;
         text-align: center;
-        color: #740000;
+        color: #000000;
+    }
+    .app-texto{
+        color:white;
+        font-size: 19px;
+        padding: 21px;
     }
     
-    .login-form {
+    /* .login-form {
         text-align: center;
-    }
+    } */
     .control-group {
         position: relative;
         display: flex;
@@ -493,11 +516,7 @@ a{
         margin: 0 auto;
         padding: 20px;
       }
-      h1 {
-        text-align: center;
-        color: #007bff;
-        margin-bottom: 40px;
-      }
+      
       table {
         width: 100%;
         border-collapse: collapse;
