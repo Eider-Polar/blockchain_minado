@@ -1,4 +1,4 @@
-import Block from"./block.js"
+import Block from "./block.js";
 
 class Blockchain {
   constructor() {
@@ -21,6 +21,7 @@ class Blockchain {
     for (let i = 1; i < chain.length; i++) {
       const block = chain[i];
       const lastBLock = chain[i - 1];
+
       if (
         block.previousHash !== lastBLock.hash ||
         block.hash !== Block.blockHash(block)
@@ -34,14 +35,14 @@ class Blockchain {
   remplaceChain(newChain) {
     if (newChain.length <= this.chain.length) {
       console.log("Receiced chain is not  longer than the current chain ");
+      return;
     } else if (!this.isValidChain(newChain)) {
       console.log("the received chain is not valid");
-    } else {
-      console.log("Replacing the received chain . .");
-      this.chain = newChain;
+      return;
     }
+    console.log("Replacing the received chain . . .");
+    this.chain = newChain;
   }
- 
 }
 
-export  default Blockchain
+export default Blockchain;

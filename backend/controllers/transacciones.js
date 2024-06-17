@@ -13,36 +13,33 @@ const nuevaTransaccion = async (req, res) => {
   const data = req.body;
   try {
     const CAMPANIAG = await campania.findOne({ _id: id });
-    console.log(CAMPANIAG)
     const cambio = parseInt(data.montoDonado);
     CAMPANIAG.cantidadActual = CAMPANIAG.cantidadActual + cambio;
     await CAMPANIAG.save();
-    const y =   CAMPANIAG._id.valueOf()
+    const y = CAMPANIAG._id.valueOf();
     const cuentaOrganizacion = await organizacion.findOne({
-      campanias: y
+      campanias: y,
     });
-  console.log(cuentaOrganizacion)
     data.usuario = req.usuario._id;
-    data.nombre=req.usuario.nombre
+    data.nombre = req.usuario.nombre;
     data.campaniabenefica = id;
-    data.cuenta_Organizacion=cuentaOrganizacion.cuentaBAncaria
-    data.Nombre_Organizacion=cuentaOrganizacion.nombre
-    const block = bc.addBlock(data);
+    data.cuenta_Organizacion = cuentaOrganizacion.cuentaBAncaria;
+    data.Nombre_Organizacion = cuentaOrganizacion.nombre;
 
+    const block = bc.addBlock(data);
 
     data.hashDelBloque = block.hash;
     const TransaccionN = new Transaccion(data);
     const TGuardada = await TransaccionN.save();
-    res.json(TGuardada);
+    // res.json(TGuardada);
+    res.json(bc.chain);
     P2pserver.syncChains();
-
   } catch (error) {
     console.log(error);
-  }    
-  
+  }
 };
-const verCadena = async (req, res) => {
-  res.json(bc.chain);
+const verCadena = async (req, res) => {  res.json(bc.chain)
+
 };
 const verTransaccionesxUsuario = async (req, res) => {
   const bloques = {};
@@ -72,12 +69,5 @@ const verTransaccionesxUsuario = async (req, res) => {
 
   res.json(bloques);
 };
-const verTotalDonado=async(req,res)=>{
-  try {
-    const capas = await campania.find()
-    res.json(capas)
-  } catch (error) {
-    console.log(error)
-  }
-}
-export { nuevaTransaccion, verCadena, verTransaccionesxUsuario, verTotalDonado};
+
+export { nuevaTransaccion, verCadena, verTransaccionesxUsuario };

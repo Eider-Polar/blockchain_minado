@@ -13,12 +13,13 @@ class P2PServer {
     }
 
     listen() {
-        const server = new webSocket.Server({ host: '0.0.0.0', port: P2P_PORT }); // Modificación aquí
+        const server = new webSocket.Server({ host: '0.0.0.0', port: P2P_PORT }); 
         server.on('connection', socket => this.connectSocket(socket));
 
         this.connectToPeers();
 
-        console.log('Listening for peer-to-peer connections on port ' + P2P_PORT + " estos son los peer" + peers);
+        console.log('Listening for peer-to-peer connections on port ' + P2P_PORT + "estos son los peer" + peers);
+        console.log(this.sockets+"LLENO?")
     }
     
 
