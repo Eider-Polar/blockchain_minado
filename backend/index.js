@@ -11,12 +11,12 @@ import OrganizacionRouter from "./routes/OrganizacionRouter.js";
 import transaccionesRouter from "./routes/transaccionesRouter.js";
 import Wallet from "../backend/wallet/index.js";
 import TransactionsPoll from "./wallet/transactions_pool.js";
-
+import Miner  from "./app/miner.js"
 const wallet = new Wallet();
 const tp = new TransactionsPoll();
 const bc = new Blockchain();
-
 const p2pserver = new P2Pserver(bc,tp);
+const miner  = new Miner(bc,tp,wallet,p2pserver);
 const app = express();
 app.use(express.json());
 
@@ -53,11 +53,26 @@ app.get("/transactions", (req, res) => {
 
 app.post("/transact", (req, res) => {
   const { recipient, amount } = req.body;
-  const transaction = wallet.createTransaction(recipient, amount, tp);
+  const transaction = wallet.createTransaction(recipient, amount,bc, tp);
   p2pserver.broadcastTransaction(transaction)
   res.redirect("/transactions");
 });
 app.get('/publicKey',(req,res)=>{
   res.json({publicKey:wallet.publicKey})
 })
+app.post('/mine_transactions',(req,res)=>{
+  const block = miner.mine();
+  console.log('added New Block'+block)
+  res.redirect('/blocks')
+})
+
+app.get('/balance',(req,res)=>{
+  res.json(wallet.calculateBalance(bc,wallet.publicKey))
+})
+
+app.post('/address_balance',(req,res)=>{
+  res.json(wallet.calculateBalance(bc, req.body.address))
+})
+
+
 p2pserver.listen();

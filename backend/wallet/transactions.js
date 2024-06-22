@@ -1,6 +1,6 @@
 import ChainUtil from "./chain_ultis.js";
 import Wallet from "./index.js";
-
+const MINING_REWARD = 50;
 class Transaccion {
   constructor() {
     this.id = ChainUtil.id();
@@ -8,11 +8,8 @@ class Transaccion {
     this.outputs = [];
   }
   update(senderWallet, recipient, amount) {
-    // console.log(this.outputs)
-    const senderOutput = this.outputs.find(
-      (output) => output.address === senderWallet.publicKey
-    );
-    console.log(senderOutput)
+    
+    const senderOutput = this.outputs.find((output) => output.address === senderWallet.publicKey);
     if (amount > senderOutput.amount) {
       console.log(`Amount ${amount} exceeds balance`);
       return;
@@ -23,22 +20,39 @@ class Transaccion {
     return Transaccion;
   }
 
-  static newTransaction(senderWallet, recipient, amount) {
+  static transactionWithOutputs(senderWallet, outputs) {
+   
     const transaction = new this();
+    transaction.outputs.push(...outputs);
+
+    Transaccion.singTransaction(transaction, senderWallet);
+    return transaction;
+  }
+
+  static newTransaction(senderWallet, recipient, amount) {
     if (amount > senderWallet.balance) {
       console.log(`Amont ${amount} exceeds balance`);
       return;
     }
-    transaction.outputs.push(
+    return Transaccion.transactionWithOutputs(senderWallet, [
       {
         amount: senderWallet.balance - amount,
         address: senderWallet.publicKey,
       },
-      { amount, address: recipient }
-    );
-    Transaccion.singTransaction(transaction, senderWallet);
-    return transaction;
+      { amount, address: recipient },
+    ]);
+     
   }
+
+  static rewardTransaction(minerWallet, senderWallet) {
+    return Transaccion.transactionWithOutputs(senderWallet, [
+      {
+        amount: MINING_REWARD,
+        address: minerWallet.publicKey,
+      },
+    ]);
+  }
+
   static singTransaction(transaction, senderWallet) {
     transaction.input = {
       timestamp: Date.now(),

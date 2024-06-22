@@ -17,7 +17,6 @@ class TransactionsPoll {
   }
 
   existingTransaction(address) {
-    
     return this.transactions.find((t) => t.input.addres === address);
   }
   validTransactions() {
@@ -25,15 +24,21 @@ class TransactionsPoll {
       const outputTotal = transaction.outputs.reduce((total, output) => {
         return total + output.amount;
       }, 0);
-      if (transaction.input.amount !== outputTotal) {
+    
+      if (transaction.input.amout !== outputTotal) {
         console.log(`Invalid transaction from ${transaction.input.addres}`);
         return;
       }
-      if (Transaccion.verifyTransaction(transaction)) {
+      if (!Transaccion.verifyTransaction(transaction)) { 
         console.log(`Invalid signature from ${transaction.input.addres}`);
         return;
       }
+      return transaction
     });
+  }
+
+  clear() {
+    this.transactions = [];
   }
 }
 

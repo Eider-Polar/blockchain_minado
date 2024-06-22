@@ -9,6 +9,7 @@ const P2P_PORT = process.env.P2P_PORT;
 const MESSAGE_TYPES = {
   chain: "CHAIN",
   transaction: "TRANSACTION",
+  clear_transactions: "CLEAR_TRANSACTIONS",
 };
 
 console.log("P2P_PORT:", P2P_PORT);
@@ -52,12 +53,15 @@ class P2PServer {
     socket.on("message", (message) => {
       const data = JSON.parse(message);
       // this.blockchain.remplaceChain(data);
-      switch ((data.type)) {
+      switch (data.type) {
         case MESSAGE_TYPES.chain:
           this.blockchain.remplaceChain(data.chain);
           break;
         case MESSAGE_TYPES.transaction:
           this.transactionPool.updateOrAddTransaction(data.transaction);
+          break;
+        case MESSAGE_TYPES.clear_transactions:
+          this.transactionPool.clear();
           break;
       }
     });
@@ -98,6 +102,16 @@ class P2PServer {
 
   broadcastTransaction(transaction) {
     sockets.forEach((socket) => this.sendTransaction(socket, transaction));
+  }
+
+  broadcastClearTransactions() {
+    sockets.forEach((socket) =>
+      socket.send(
+        JSON.stringify({
+          type: MESSAGE_TYPES.clear_transactions,
+        })
+      )
+    );
   }
 }
 export default P2PServer;

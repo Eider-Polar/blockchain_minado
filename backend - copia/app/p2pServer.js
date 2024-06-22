@@ -1,10 +1,13 @@
-const webSocket = require('ws');
-require('dotenv').config();
+import WebSocket, { WebSocketServer } from 'ws';
+import dotenv from 'dotenv';
 
-const peers = process.env.peers ? process.env.peers.split(',') : [];
-const P2P_PORT = process.env.P2P_PORT || 5009 || process.argv[2];
+dotenv.config();
 
-console.log(P2P_PORT);
+// ws://192.168.101.3:12345
+const peers = process.env.PEERS ? process.env.PEERS.split(',') : ["ws://localhost:5009"];
+const P2P_PORT = 5001;
+
+console.log('P2P_PORT:', P2P_PORT);
 
 class P2PServer {
     constructor(blockchain) {
@@ -13,19 +16,18 @@ class P2PServer {
     }
 
     listen() {
-        const server = new webSocket.Server({ host: '0.0.0.0', port: P2P_PORT }); 
+        const server = new WebSocketServer({ host: '0.0.0.0', port: P2P_PORT }); // Modificación aquí
         server.on('connection', socket => this.connectSocket(socket));
 
         this.connectToPeers();
 
-        console.log('Listening for peer-to-peer connections on port ' + P2P_PORT + "estos son los peer" + peers);
-        console.log(this.sockets+"LLENO?")
+        console.log('Listening for peer-to-peer connections on port ' + P2P_PORT + " estos son los peer" + peers);
     }
     
 
     connectToPeers() {
         peers.forEach(peer => {
-            const socket = new webSocket(peer);
+            const socket = new WebSocket(peer);
             socket.on('open', () => this.connectSocket(socket));
         });
     }
@@ -44,6 +46,7 @@ class P2PServer {
             const data = JSON.parse(message);
             // this.blockchain.isValidChain(data);]}
             this.blockchain.remplaceChain(data)
+            console.log(JSON.stringify(data))
 
 
         });
@@ -60,4 +63,4 @@ class P2PServer {
     }
 }
 
-module.exports = P2PServer;
+export default P2PServer;
